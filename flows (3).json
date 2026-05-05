@@ -1,0 +1,266 @@
+[
+    {
+        "id": "fc4e55ffc49550c0",
+        "type": "tab",
+        "label": "Flux 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "c09dcdd7c2f20dda",
+        "type": "inject",
+        "z": "fc4e55ffc49550c0",
+        "name": "timestamp",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 290,
+        "y": 260,
+        "wires": [
+            [
+                "052f85023defe7df"
+            ]
+        ]
+    },
+    {
+        "id": "052f85023defe7df",
+        "type": "cpu",
+        "z": "fc4e55ffc49550c0",
+        "name": "",
+        "msgCore": false,
+        "msgOverall": true,
+        "msgArray": false,
+        "msgTemp": false,
+        "x": 590,
+        "y": 260,
+        "wires": [
+            [
+                "1c4cd4c7265d7c26",
+                "c032bdb790522762",
+                "86703422554a87e5",
+                "2ae43ff336a65a84"
+            ]
+        ]
+    },
+    {
+        "id": "e0ad15225a697200",
+        "type": "ui_led",
+        "z": "fc4e55ffc49550c0",
+        "order": 0,
+        "group": "c5c6a33e296bfdcc",
+        "width": 0,
+        "height": 0,
+        "label": "",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "false",
+                "valueType": "bool"
+            },
+            {
+                "color": "#008000",
+                "value": "false",
+                "valueType": "bool"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 910,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1c4cd4c7265d7c26",
+        "type": "ui_gauge",
+        "z": "fc4e55ffc49550c0",
+        "name": "",
+        "group": "c5c6a33e296bfdcc",
+        "order": 1,
+        "width": "4",
+        "height": "4",
+        "gtype": "gage",
+        "title": "gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "diff": false,
+        "className": "",
+        "x": 810,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "c032bdb790522762",
+        "type": "ui_chart",
+        "z": "fc4e55ffc49550c0",
+        "name": "",
+        "group": "c5c6a33e296bfdcc",
+        "order": 2,
+        "width": "6",
+        "height": "3",
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "100",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 770,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cc5af2f0d6907b8e",
+        "type": "ui_slider",
+        "z": "fc4e55ffc49550c0",
+        "name": "",
+        "label": "slider",
+        "tooltip": "",
+        "group": "c5c6a33e296bfdcc",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "min": "0",
+        "max": "100",
+        "step": 1,
+        "className": "",
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "19de575b4e7a8c6e"
+            ]
+        ]
+    },
+    {
+        "id": "19de575b4e7a8c6e",
+        "type": "function",
+        "z": "fc4e55ffc49550c0",
+        "name": "mem",
+        "func": "global.set (\"Seuil\",msg.payload);",
+        "outputs": 0,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "86703422554a87e5",
+        "type": "function",
+        "z": "fc4e55ffc49550c0",
+        "name": "Seuil",
+        "func": "var Seuil=global.get('Seuil');\nvar Led =false;\nif(msg.payload>Seuil)Led=true;\nmsg.payload=Led;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 180,
+        "wires": [
+            [
+                "e0ad15225a697200"
+            ]
+        ]
+    },
+    {
+        "id": "2ae43ff336a65a84",
+        "type": "debug",
+        "z": "fc4e55ffc49550c0",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c5c6a33e296bfdcc",
+        "type": "ui_group",
+        "name": "CpuTempératue",
+        "tab": "b1f31686a3f761a4",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b1f31686a3f761a4",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0d540eb12333c783",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-cpu": "0.0.4",
+            "node-red-contrib-ui-led": "0.4.11",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
